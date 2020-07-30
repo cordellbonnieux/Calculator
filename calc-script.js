@@ -1,5 +1,6 @@
 // display
 let display = document.getElementById("display");
+let history = document.getElementById("history");
 //buttons
 let one = document.getElementById("one");
 let two = document.getElementById("two");
@@ -30,3 +31,55 @@ function multiplication(a, b){
 function division(a, b){
     return a / b;
 }
+// numbers
+let value = [];
+one.addEventListener('click', function(){
+    value += 1;
+    console.log(value);
+    return display.innerHTML += "1";
+} );
+two.addEventListener('click', function(){
+    value += 2;
+    console.log(value);
+   return display.innerHTML += "2";
+});
+three.addEventListener('click', function(){
+    value += 3;
+    console.log(value);
+    return display.innerHTML += "3";
+} );
+four.addEventListener('click', function(){
+    value += 4;
+    console.log(value);
+   return display.innerHTML += "4";
+});
+five.addEventListener('click', function(){
+    value += 5;
+    console.log(value);
+    return display.innerHTML += "5";
+} );
+six.addEventListener('click', function(){
+    value += 6;
+    console.log(value);
+   return display.innerHTML += "6";
+});
+seven.addEventListener('click', function(){
+    value += 7;
+    console.log(value);
+    return display.innerHTML += "7";
+} );
+eight.addEventListener('click', function(){
+    value += 8;
+    console.log(value);
+   return display.innerHTML += "8";
+});
+nine.addEventListener('click', function(){
+    value += 9;
+    console.log(value);
+    return display.innerHTML += "9";
+} );
+zero.addEventListener('click', function(){
+    value += 0;
+    console.log(value);
+   return display.innerHTML += "0";
+});

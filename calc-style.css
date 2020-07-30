@@ -1,7 +1,6 @@
 #wrapper{
     text-align:center;
     display:block;
-    width:100%;
 }
     #inner-wrapper{
         width:320px;
@@ -10,29 +9,26 @@
      .full-width{
          text-align:center;
      }
-#display{
+#display-wrapper{
     padding:4px 4px;
     background-color:grey;
-    width:97.5%;
+    width:303px;
     margin:4px auto;
     height:50px;
     color:#fff;
 }
+    #display{
+
+    }
 /* buttons */
 .small{
-    width:24%;
+    width:74px;
     display:inline-block;
     margin:4px 0;
     padding:4px 0;
 }
 .medium{
-    width:32.3%;
-    display:inline-block;
-    margin:4px 0;
-    padding:4px 0;
-}
-.large{
-    width:66%;
+    width:100px;
     display:inline-block;
     margin:4px 0;
     padding:4px 0;
