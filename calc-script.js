@@ -18,21 +18,8 @@ let subtract = document.getElementById("subtract");
 let add = document.getElementById("add");
 let equals = document.getElementById("equals");
 let clear = document.getElementById("clear");
-// math functions
-function addition(a, b){
-    return a + b;
-}
-function subtraction(a, b){
-    return a - b;
-}
-function multiplication(a, b){
-    return a * b;
-}
-function division(a, b){
-    return a / b;
-}
-// numbers
-let value = [];
+// number buttons
+let value = 0;
 one.addEventListener('click', function(){
     value += 1;
     console.log(value);
@@ -61,7 +48,7 @@ five.addEventListener('click', function(){
 six.addEventListener('click', function(){
     value += 6;
     console.log(value);
-   return display.innerHTML += "6";
+    return display.innerHTML += "6";
 });
 seven.addEventListener('click', function(){
     value += 7;
@@ -81,5 +68,57 @@ nine.addEventListener('click', function(){
 zero.addEventListener('click', function(){
     value += 0;
     console.log(value);
-   return display.innerHTML += "0";
+    return display.innerHTML += "0";
+});
+// equation value storage
+let numA = 0;
+let numB = 0;
+let operatorAdd = false;
+let operatorSubtract = false;
+let operatorMultiply = false;
+let operatorDivide = false;
+// operator functions
+function addition(a, b){
+    return numA = a + b;
+}
+function subtraction(a, b){
+    return numA = a - b;
+}
+function multiplication(a, b){
+    return numA = a * b;
+}
+function division(a, b){
+    return numA = a / b;
+}
+// clear function
+clear.addEventListener('click', function(){
+    value = 0, numA = 0, numB = 0, operator = 0;
+    return display.innerHTML = "", history.innerHTML = "";
+});
+// Add
+add.addEventListener('click', function(){
+    if (numA && operatorAdd){
+        numA = addition(numA,value);
+        return value = 0;
+    } else if (numA && operatorSubtract){
+        operatorSubtract = false;
+        operatorAdd = true;
+        numA = subtraction(numA,value);
+        return value = 0;
+    } else if (numA && operatorMultiply){
+        operatorMultiply = false;
+        operatorAdd = true;
+        numA = multiplication(numA,value);
+        return value = 0;
+    } else if (numA && operatorDivide){
+        operatorDivide = false;
+        operatorAdd = true;
+        numA = division(numA,value);
+        return value = 0;
+    } else {
+        numA = value;
+        operatorAdd = true;
+        return value = 0;
+    }
+    // ADD display and history!
 });
