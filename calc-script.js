@@ -95,8 +95,40 @@ clear.addEventListener('click', function(){
     value = 0, numA = 0, numB = 0, operator = 0;
     return display.innerHTML = "", history.innerHTML = "";
 });
+// Equals
+equals.addEventListener('click', function(){
+    document.getElementsByClassName("operator").lastChild.innerHTML.style.display = "none";
+    if (numA && operatorAdd){
+        operatorAdd = false;
+        numB = addition(numA,value);
+        history.innerHTML
+        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        return value = 0, numA = 0;
+    } else if (numA && operatorSubtract){
+        operatorSubtract = false;
+        numB = subtraction(numA,value);
+        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        return value = 0, numA = 0;
+    } else if (numA && operatorMultiply){
+        operatorMultiply = false;
+        numB = multiplication(numA,value);
+        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        return value = 0, numA = 0;
+    } else if (numA && operatorDivide){
+        operatorDivide = false;
+        numB = division(numA,value);
+        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        return value = 0, numA = 0;
+    } else {
+        numB = value;
+        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        return value = 0, numA = 0;
+    }    
+});
 // Add
 add.addEventListener('click', function(){
+    numB = 0;
+    display.innerHTML = "", history.innerHTML += value + `<span class="add operator"> + </span>`;
     if (numA && operatorAdd){
         numA = addition(numA,value);
         return value = 0;
@@ -120,5 +152,4 @@ add.addEventListener('click', function(){
         operatorAdd = true;
         return value = 0;
     }
-    // ADD display and history!
 });
