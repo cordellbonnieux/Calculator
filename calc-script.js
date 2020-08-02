@@ -23,52 +23,42 @@ let clear = document.getElementById("clear");
 let value = 0;
 one.addEventListener('click', function(){
     value += 1;
-    console.log(value);
     return display.innerHTML += "1";
 } );
 two.addEventListener('click', function(){
     value += 2;
-    console.log(value);
    return display.innerHTML += "2";
 });
 three.addEventListener('click', function(){
     value += 3;
-    console.log(value);
     return display.innerHTML += "3";
 } );
 four.addEventListener('click', function(){
     value += 4;
-    console.log(value);
    return display.innerHTML += "4";
 });
 five.addEventListener('click', function(){
     value += 5;
-    console.log(value);
     return display.innerHTML += "5";
 } );
 six.addEventListener('click', function(){
     value += 6;
-    console.log(value);
     return display.innerHTML += "6";
 });
 seven.addEventListener('click', function(){
     value += 7;
-    console.log(value);
     return display.innerHTML += "7";
 } );
 eight.addEventListener('click', function(){
     value += 8;
-    console.log(value);
    return display.innerHTML += "8";
 });
 nine.addEventListener('click', function(){
     value += 9;
-    console.log(value);
     return display.innerHTML += "9";
 } );
 zero.addEventListener('click', function(){
     value += 0;
-    console.log(value);
     return display.innerHTML += "0";
 });
 // equation value storage
@@ -93,7 +83,11 @@ function division(a, b){
 }
 // clear function
 clear.addEventListener('click', function(){
-    value = 0, numA = 0, numB = 0, operator = 0;
+    value = 0, numA = 0, numB = 0, operator = 0, historyArray = [];
+    let operatorAdd = false;
+    let operatorSubtract = false;
+    let operatorMultiply = false;
+    let operatorDivide = false;
     return display.innerHTML = "", history.innerHTML = "";
 });
 // Equals
@@ -159,6 +153,37 @@ add.addEventListener('click', function(){
     } else {
         numA = value;
         operatorAdd = true;
+        return value = 0;
+    }
+});
+// Subtract
+subtract.addEventListener('click', function(){
+    numB = 0;
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> - </li>`);
+    history.innerHTML = historyArray.join(' ');
+    display.innerHTML = "";
+    if (numA && operatorAdd){
+        operatorAdd = false;
+        operatorSubtract = true;
+        numA = addition(numA,value);
+        return value = 0;
+    } else if (numA && operatorSubtract){
+        numA = subtraction(numA,value);
+        return value = 0;
+    } else if (numA && operatorMultiply){
+        operatorMultiply = false;
+        operatorSubtract = true;
+        numA = multiplication(numA,value);
+        return value = 0;
+    } else if (numA && operatorDivide){
+        operatorDivide = false;
+        operatorSubtract = true;
+        numA = division(numA,value);
+        return value = 0;
+    } else {
+        numA = value;
+        operatorSubtract = true;
         return value = 0;
     }
 });
