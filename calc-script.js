@@ -1,6 +1,7 @@
 // display
 let display = document.getElementById("display");
 let history = document.getElementById("history");
+let historyArray = [];
 //buttons
 let one = document.getElementById("one");
 let two = document.getElementById("two");
@@ -96,39 +97,47 @@ clear.addEventListener('click', function(){
     return display.innerHTML = "", history.innerHTML = "";
 });
 // Equals
+let operators;
 equals.addEventListener('click', function(){
-    document.getElementsByClassName("operator").lastChild.innerHTML.style.display = "none";
+    historyArray.pop();
     if (numA && operatorAdd){
         operatorAdd = false;
         numB = addition(numA,value);
-        history.innerHTML
-        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        history.innerHTML = historyArray.join(' ');
+        display.innerHTML = numB, history.innerHTML += "<span> = " + numB + "</span>";
         return value = 0, numA = 0;
     } else if (numA && operatorSubtract){
         operatorSubtract = false;
         numB = subtraction(numA,value);
-        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        history.innerHTML = historyArray.join(' ');
+        display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
         return value = 0, numA = 0;
     } else if (numA && operatorMultiply){
         operatorMultiply = false;
         numB = multiplication(numA,value);
-        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        history.innerHTML = historyArray.join(' ');
+        display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
         return value = 0, numA = 0;
     } else if (numA && operatorDivide){
         operatorDivide = false;
         numB = division(numA,value);
-        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        history.innerHTML = historyArray.join(' ');
+        display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
         return value = 0, numA = 0;
     } else {
         numB = value;
-        display.innerHTML = numB, history.innerHTML += " = " + numB;
+        history.innerHTML = historyArray;
+        display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
         return value = 0, numA = 0;
     }    
 });
 // Add
 add.addEventListener('click', function(){
     numB = 0;
-    display.innerHTML = "", history.innerHTML += value + `<span class="add operator"> + </span>`;
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> + </li>`);
+    history.innerHTML = historyArray.join(' ');
+    display.innerHTML = "";
     if (numA && operatorAdd){
         numA = addition(numA,value);
         return value = 0;

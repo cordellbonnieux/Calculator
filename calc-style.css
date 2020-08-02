@@ -17,9 +17,19 @@
     height:50px;
     color:#fff;
 }
-    #display{
+    #display, #history{
         height:20px;
+        list-style:none;
+        display:block;
+        margin:0;
+        padding:0;
     }
+        #display li{
+            margin:0;
+            padding:0;
+            display:inline-block;
+            list-style:none;
+        }
 /* buttons */
 .small{
     width:74px;
