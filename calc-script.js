@@ -349,3 +349,11 @@ backspace.addEventListener('click', function(){
         return;
     }
 });
+// Decimal
+decimal.addEventListener('click', function(){
+    if (value.indexOf('.') > -1){
+        return;
+    } else {
+        return value += ".", display.innerHTML += ".";
+    }
+});
