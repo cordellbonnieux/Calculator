@@ -21,6 +21,8 @@ let equals = document.getElementById("equals");
 let clear = document.getElementById("clear");
 let backspace = document.getElementById("backspace");
 let decimal = document.getElementById("decimal");
+// keyboard support
+
 // number buttons
 let value = "";
 one.addEventListener('click', function(){
@@ -148,34 +150,34 @@ equals.addEventListener('click', function(){
             historyArray.push(' + ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = " + numB + "</span>";
-            return value = "", numA = 0;
+            return value = numB, numA = 0;
         } else if (operatorSubtract){
             operatorSubtract = false;
             numB = subtraction(numA,value);
             historyArray.push(' - ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = "", numA = 0;
+            return value = numB, numA = 0;
         } else if (operatorMultiply){
             operatorMultiply = false;
             numB = multiplication(numA,value);
             historyArray.push(' x ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = "", numA = 0;
+            return value = numB, numA = 0;
         } else if (operatorDivide){
             operatorDivide = false;
             numB = division(numA,value);
             historyArray.push(' &#247; ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = "", numA = 0;
+            return value = `${numB}`, numA = 0;
         } else {
             numB = value;
             numB = Number(numB);
             history.innerHTML = historyArray;
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = "", numA = 0;
+            return value = `${numB}`, numA = 0;
         }
     }    
 });
@@ -190,7 +192,7 @@ add.addEventListener('click', function(){
     }
     numB = 0;
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> + </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> + </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -228,7 +230,7 @@ subtract.addEventListener('click', function(){
     }
     numB = 0;
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> - </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> - </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -266,7 +268,7 @@ multiply.addEventListener('click', function(){
     }
     numB = 0;
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> x </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> x </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -313,7 +315,7 @@ divide.addEventListener('click', function(){
     } else {
         numB = 0;
         historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-        historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> &#247; </li>`);
+        historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> &#247; </li>`);
         history.innerHTML = historyArray.join(' ');
         display.innerHTML = "";
         if (numA && operatorAdd){
