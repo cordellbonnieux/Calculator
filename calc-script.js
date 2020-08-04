@@ -19,6 +19,8 @@ let subtract = document.getElementById("subtract");
 let add = document.getElementById("add");
 let equals = document.getElementById("equals");
 let clear = document.getElementById("clear");
+let backspace = document.getElementById("backspace");
+let decimal = document.getElementById("decimal");
 // number buttons
 let value = "";
 one.addEventListener('click', function(){
@@ -135,7 +137,7 @@ equals.addEventListener('click', function(){
         operatorMultiply = false;
         operatorDivide = false;
         zeroError = true;
-        history.innerHTML += "<span> = :(</span>"
+        history.innerHTML += "<span> = &#9785;</span>"
         return display.innerHTML = "You can't divide by zero."
     } else {
         if (operatorAdd){
@@ -337,5 +339,13 @@ divide.addEventListener('click', function(){
             operatorDivide = true;
             return value = "";
         }
+    }
+});
+// Backspace
+backspace.addEventListener('click', function(){
+    if (value.length > 0){
+        return value = value.slice(0,-1), display.innerHTML = value;
+    } else {
+        return;
     }
 });

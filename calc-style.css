@@ -31,14 +31,26 @@
             list-style:none;
         }
 /* buttons */
-.small{
+.quarter{
     width:74px;
     display:inline-block;
     margin:4px 0;
     padding:4px 0;
 }
-.medium{
+.third{
     width:100px;
+    display:inline-block;
+    margin:4px 0;
+    padding:4px 0;
+}
+.fifth{
+    width:58px;
+    display:inline-block;
+    margin:4px 0;
+    padding:4px 0;
+}
+.half{
+    width:151px;
     display:inline-block;
     margin:4px 0;
     padding:4px 0;
