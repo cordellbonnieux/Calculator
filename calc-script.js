@@ -22,52 +22,52 @@ let clear = document.getElementById("clear");
 // number buttons
 let value = "";
 one.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "1";
     return display.innerHTML += "1";
 } );
 two.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "2";
     return display.innerHTML += "2";
 });
 three.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "3";
     return display.innerHTML += "3";
 } );
 four.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "4";
     return display.innerHTML += "4";
 });
 five.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "5";
     return display.innerHTML += "5";
 } );
 six.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "6";
     return display.innerHTML += "6";
 });
 seven.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "7";
     return display.innerHTML += "7";
 } );
 eight.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "8";
     return display.innerHTML += "8";
 });
 nine.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "9";
     return display.innerHTML += "9";
 } );
 zero.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     value += "0";
     return display.innerHTML += "0";
 });
@@ -87,8 +87,11 @@ function zeroReset(){
     operatorMultiply = false;
     operatorDivide = false;
     zeroError = false;
+    equalReset = false;
     return display.innerHTML = "", history.innerHTML = "";
 }
+// Reset for =
+let equalReset = false;
 // operator functions
 function addition(a, b){
     return a + b;
@@ -109,19 +112,21 @@ clear.addEventListener('click', function(){
     operatorSubtract = false;
     operatorMultiply = false;
     operatorDivide = false;
+    zeroError = false;
+    equalReset = false;
     return display.innerHTML = "", history.innerHTML = "";
 });
 // Equals
 let operators;
 equals.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
     } else {
         value = Number(value);
     }
-    numA = Number(numA);
+    equalReset = true;
     historyArray.pop();
     if (value == 0 && operatorDivide === true || numA == 0 && operatorDivide === true){
         value = "", numA = 0, numB = 0, operator = 0, historyArray = [];
@@ -133,34 +138,32 @@ equals.addEventListener('click', function(){
         history.innerHTML += "<span> = :(</span>"
         return display.innerHTML = "You can't divide by zero."
     } else {
-        if (numA && operatorAdd){
+        if (operatorAdd){
+            console.log('addition works');
             operatorAdd = false;
             numB = addition(numA,value);
-            numB = Number(numB);
+            // potentially change numB to a string, limit it's length and convert it back to a number.
             historyArray.push(' + ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = " + numB + "</span>";
             return value = "", numA = 0;
-        } else if (numA && operatorSubtract){
+        } else if (operatorSubtract){
             operatorSubtract = false;
             numB = subtraction(numA,value);
-            numB = Number(numB);
             historyArray.push(' - ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
             return value = "", numA = 0;
-        } else if (numA && operatorMultiply){
+        } else if (operatorMultiply){
             operatorMultiply = false;
             numB = multiplication(numA,value);
-            numB = Number(numB);
             historyArray.push(' x ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
             return value = "", numA = 0;
-        } else if (numA && operatorDivide){
+        } else if (operatorDivide){
             operatorDivide = false;
             numB = division(numA,value);
-            numB = Number(numB);
             historyArray.push(' &#247; ' + value);
             history.innerHTML = historyArray.join(' ');
             display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
@@ -176,7 +179,7 @@ equals.addEventListener('click', function(){
 });
 // Add
 add.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -188,38 +191,33 @@ add.addEventListener('click', function(){
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> + </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
-    if (numA && operatorAdd){
-        numA = Number(numA);
+    if (numA && operatorAdd || numA == 0 && operatorAdd){
         numA = addition(numA,value);
         return value = "";
-    } else if (numA && operatorSubtract){
+    } else if (numA && operatorSubtract || numA == 0 && operatorSubtract){
         operatorSubtract = false;
         operatorAdd = true;
-        numA = Number(numA);
         numA = subtraction(numA,value);
         return value = "";
-    } else if (numA && operatorMultiply){
+    } else if (numA && operatorMultiply || numA == 0 && operatorMultiply){
         operatorMultiply = false;
         operatorAdd = true;
-        numA = Number(numA);
         numA = multiplication(numA,value);
         return value = "";
-    } else if (numA && operatorDivide){
+    } else if (numA && operatorDivide || numA == 0 && operatorDivide){
         operatorDivide = false;
         operatorAdd = true;
-        numA = Number(numA);
         numA = division(numA,value);
         return value = "";
     } else {
-        numA = value;
-        numA = Number(numA);
+        numA = Number(value);
         operatorAdd = true;
         return value = "";
     }
 });
 // Subtract
 subtract.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -231,38 +229,33 @@ subtract.addEventListener('click', function(){
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> - </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
-    if (numA && operatorAdd){
+    if (numA && operatorAdd || numA == 0 && operatorAdd){
         operatorAdd = false;
         operatorSubtract = true;
-        numA = Number(numA);
         numA = addition(numA,value);
         return value = "";
-    } else if (numA && operatorSubtract){
-        numA = Number(numA);
+    } else if (numA && operatorSubtract || numA == 0 && operatorSubtract){
         numA = subtraction(numA,value);
         return value = "";
-    } else if (numA && operatorMultiply){
+    } else if (numA && operatorMultiply || numA == 0 && operatorMultiply){
         operatorMultiply = false;
         operatorSubtract = true;
-        numA = Number(numA);
         numA = multiplication(numA,value);
         return value = "";
-    } else if (numA && operatorDivide){
+    } else if (numA && operatorDivide || numA == 0 && operatorDivide){
         operatorDivide = false;
         operatorSubtract = true;
-        numA = Number(numA);
         numA = division(numA,value);
         return value = "";
     } else {
-        numA = value;
-        numA = Number(numA);
+        numA = Number(value);
         operatorSubtract = true;
         return value = "";
     }
 });
 // Multiply
 multiply.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -274,38 +267,33 @@ multiply.addEventListener('click', function(){
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> x </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
-    if (numA && operatorAdd){
+    if (numA && operatorAdd || numA == 0 && operatorAdd){
         operatorAdd = false;
         operatorMultiply = true;
-        numA = Number(numA);
         numA = addition(numA,value);
         return value = "";
-    } else if (numA && operatorSubtract){
+    } else if (numA && operatorSubtract || numA == 0 && operatorSubtract){
         operatorSubtract = false;
         operatorMultiply = true;
-        numA = Number(numA);
         numA = subtraction(numA,value);
         return value = "";
-    } else if (numA && operatorMultiply){
-        numA = Number(numA);
+    } else if (numA && operatorMultiply || numA == 0 && operatorMultiply){
         numA = multiplication(numA,value);
         return value = "";
-    } else if (numA && operatorDivide){
+    } else if (numA && operatorDivide || numA == 0 && operatorDivide){
         operatorDivide = false;
         operatorMultiply = true;
-        numA = Number(numA);
         numA = division(numA,value);
         return value = "";
     } else {
-        numA = value;
-        numA = Number(numA);
+        numA = Number(value);
         operatorMultiply = true;
         return value = "";
     }
 });
 // Divide
 divide.addEventListener('click', function(){
-    if (zeroError === true){zeroReset()};
+    if (zeroError === true || equalReset === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -329,28 +317,23 @@ divide.addEventListener('click', function(){
         if (numA && operatorAdd){
             operatorAdd = false;
             operatorDivide = true;
-            numA = Number(numA);
             numA = addition(numA,value);
             return value = "";
         } else if (numA && operatorSubtract){
             operatorSubtract = false;
             operatorDivide = true;
-            numA = Number(numA);
             numA = subtraction(numA,value);
             return value = "";
         } else if (numA && operatorMultiply){
             operatorMultiply = false;
             operatorDivide = true;
-            numA = Number(numA);
             numA = multiplication(numA,value);
             return value = "";
         } else if (numA && operatorDivide){
-            numA = Number(numA);
             numA = division(numA,value);
             return value = "";
         } else {
-            numA = value;
-            numA = Number(numA);
+            numA = Number(value);
             operatorDivide = true;
             return value = "";
         }
