@@ -26,52 +26,52 @@ let decimal = document.getElementById("decimal");
 // number buttons
 let value = "";
 one.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "1";
     return display.innerHTML += "1";
 } );
 two.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "2";
     return display.innerHTML += "2";
 });
 three.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "3";
     return display.innerHTML += "3";
 } );
 four.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "4";
     return display.innerHTML += "4";
 });
 five.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "5";
     return display.innerHTML += "5";
 } );
 six.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "6";
     return display.innerHTML += "6";
 });
 seven.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "7";
     return display.innerHTML += "7";
 } );
 eight.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "8";
     return display.innerHTML += "8";
 });
 nine.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "9";
     return display.innerHTML += "9";
 } );
 zero.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     value += "0";
     return display.innerHTML += "0";
 });
@@ -83,6 +83,7 @@ let operatorSubtract = false;
 let operatorMultiply = false;
 let operatorDivide = false;
 // Resets after division by zero
+let clearHistory = false;
 let zeroError = false;
 function zeroReset(){
     value = "", numA = 0, numB = 0, operator = 0, historyArray = [];
@@ -94,8 +95,6 @@ function zeroReset(){
     equalReset = false;
     return display.innerHTML = "", history.innerHTML = "";
 }
-// Reset for =
-let equalReset = false;
 // operator functions
 function addition(a, b){
     return a + b;
@@ -123,67 +122,66 @@ clear.addEventListener('click', function(){
 // Equals
 let operators;
 equals.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
     } else {
         value = Number(value);
     }
-    equalReset = true;
+    clearHistory = true;
     historyArray.pop();
     if (value == 0 && operatorDivide === true || numA == 0 && operatorDivide === true){
+        history.innerHTML += value + "<span> = &#9785;</span>"
         value = "", numA = 0, numB = 0, operator = 0, historyArray = [];
         operatorAdd = false;
         operatorSubtract = false;
         operatorMultiply = false;
         operatorDivide = false;
         zeroError = true;
-        history.innerHTML += "<span> = &#9785;</span>"
         return display.innerHTML = "You can't divide by zero."
     } else {
         if (operatorAdd){
-            console.log('addition works');
             operatorAdd = false;
             numB = addition(numA,value);
             // potentially change numB to a string, limit it's length and convert it back to a number.
             historyArray.push(' + ' + value);
             history.innerHTML = historyArray.join(' ');
-            display.innerHTML = numB, history.innerHTML += "<span> = " + numB + "</span>";
-            return value = numB, numA = 0;
+            display.innerHTML = `${numB}`, history.innerHTML += "<span> = " + numB + "</span>";
+            return value = `${numB}`, numA = 0;
         } else if (operatorSubtract){
             operatorSubtract = false;
             numB = subtraction(numA,value);
             historyArray.push(' - ' + value);
             history.innerHTML = historyArray.join(' ');
-            display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = numB, numA = 0;
+            display.innerHTML = `${numB}`, history.innerHTML += "<span> = </span>" + numB + "</span>";
+            return value = `${numB}`, numA = 0;
         } else if (operatorMultiply){
             operatorMultiply = false;
             numB = multiplication(numA,value);
             historyArray.push(' x ' + value);
             history.innerHTML = historyArray.join(' ');
-            display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
-            return value = numB, numA = 0;
+            display.innerHTML = `${numB}`, history.innerHTML += "<span> = </span>" + numB + "</span>";
+            return value = `${numB}`, numA = 0;
         } else if (operatorDivide){
             operatorDivide = false;
             numB = division(numA,value);
             historyArray.push(' &#247; ' + value);
             history.innerHTML = historyArray.join(' ');
-            display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
+            display.innerHTML = `${numB}`, history.innerHTML += "<span> = </span>" + numB + "</span>";
             return value = `${numB}`, numA = 0;
         } else {
             numB = value;
             numB = Number(numB);
             history.innerHTML = historyArray;
-            display.innerHTML = numB, history.innerHTML += "<span> = </span>" + numB + "</span>";
+            display.innerHTML = `${numB}`, history.innerHTML += "<span> = </span>" + numB + "</span>";
             return value = `${numB}`, numA = 0;
         }
     }    
 });
 // Add
 add.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -191,8 +189,13 @@ add.addEventListener('click', function(){
         value = Number(value);
     }
     numB = 0;
+    if (clearHistory){
+        history.innerHTML = "";
+        historyArray = [];
+        clearHistory = false;
+    }
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> + </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> + </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -214,14 +217,14 @@ add.addEventListener('click', function(){
         numA = division(numA,value);
         return value = "";
     } else {
-        numA = Number(value);
+        numA = value;
         operatorAdd = true;
         return value = "";
     }
 });
 // Subtract
 subtract.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -229,8 +232,13 @@ subtract.addEventListener('click', function(){
         value = Number(value);
     }
     numB = 0;
+    if (clearHistory){
+        history.innerHTML = "";
+        historyArray = [];
+        clearHistory = false;
+    }
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> - </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> - </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -259,7 +267,7 @@ subtract.addEventListener('click', function(){
 });
 // Multiply
 multiply.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -267,8 +275,13 @@ multiply.addEventListener('click', function(){
         value = Number(value);
     }
     numB = 0;
+    if (clearHistory){
+        history.innerHTML = "";
+        historyArray = [];
+        clearHistory = false;
+    }
     historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> x </li>`);
+    historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> x </li>`);
     history.innerHTML = historyArray.join(' ');
     display.innerHTML = "";
     if (numA && operatorAdd || numA == 0 && operatorAdd){
@@ -297,7 +310,7 @@ multiply.addEventListener('click', function(){
 });
 // Divide
 divide.addEventListener('click', function(){
-    if (zeroError === true || equalReset === true){zeroReset()};
+    if (zeroError === true){zeroReset()};
     if (value.toString()[0] == 0 && value.length > 1){
         value = value.substring(1);
         value = Number(value);
@@ -314,8 +327,13 @@ divide.addEventListener('click', function(){
         return display.innerHTML = "You can't divide by zero."
     } else {
         numB = 0;
+        if (clearHistory){
+            history.innerHTML = "";
+            historyArray = [];
+            clearHistory = false;
+        }
         historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;">` + value + `</li>`);
-        historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0; color:#FCA311;" class="operator"> &#247; </li>`);
+        historyArray.push(`<li style="display:inline; list-style:none; padding:0; margin:0;" class="operator"> &#247; </li>`);
         history.innerHTML = historyArray.join(' ');
         display.innerHTML = "";
         if (numA && operatorAdd){
