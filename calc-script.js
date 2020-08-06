@@ -22,14 +22,86 @@ let clear = document.getElementById("clear");
 let backspace = document.getElementById("backspace");
 let decimal = document.getElementById("decimal");
 // keyboard support
-
+window.addEventListener("keydown", checkKey, false);
+function checkKey(key){
+    if (key.keyCode == "49"){
+        if (zeroError === true){zeroReset()};
+        value += "1";
+        return display.innerHTML += "1";
+    } else if (key.keyCode == "50"){
+        if (zeroError === true){zeroReset()};
+        value += "2";
+        return display.innerHTML += "2";
+    } else if (key.keyCode == "51"){
+        if (zeroError === true){zeroReset()};
+        value += "3";
+        return display.innerHTML += "3";
+    } else if (key.keyCode == "52"){
+        if (zeroError === true){zeroReset()};
+        value += "4";
+        return display.innerHTML += "4";
+    } else if (key.keyCode == "53"){
+        if (zeroError === true){zeroReset()};
+        value += "5";
+        return display.innerHTML += "5";
+    } else if (key.keyCode == "54"){
+        if (zeroError === true){zeroReset()};
+        value += "6";
+        return display.innerHTML += "6";
+    } else if (key.keyCode == "55"){
+        if (zeroError === true){zeroReset()};
+        value += "7";
+        return display.innerHTML += "7";
+    } else if (key.keyCode == "56"){
+        if (zeroError === true){zeroReset()};
+        value += "8";
+        return display.innerHTML += "8";
+    } else if (key.keyCode == "57"){
+        if (zeroError === true){zeroReset()};
+        value += "9";
+        return display.innerHTML += "9";
+    } else if (key.keyCode == "48"){
+        if (zeroError === true){zeroReset()};
+        value += "0";
+        return display.innerHTML += "0";
+    } else if (key.keyCode == "220"){
+        // divide
+        return;
+    } else if (key.keyCode == "88"){
+        // multiply
+        return;
+    } else if (key.keyCode == "189"){
+        // subtract
+        return;
+    } else if (key.keyCode == "16" && key.keyCode == "187"){
+        // add
+        return;
+    } else if (key.keyCode == "187" && key.keyCode != "16"){
+        // equals
+        return;
+    } else if (key.keyCode == "46"){
+        return zeroReset();
+    } else if (key.keyCode == "8"){
+        if (value.length > 0){
+            return value = value.slice(0,-1), display.innerHTML = value;
+        } else {
+            return;
+        }
+    } else if (key.keyCode == "190"){
+        if (value.indexOf('.') > -1){
+            return;
+        } else {
+            return value += ".", display.innerHTML += ".";
+        }
+    }
+}
 // number buttons
 let value = "";
 one.addEventListener('click', function(){
     if (zeroError === true){zeroReset()};
     value += "1";
     return display.innerHTML += "1";
-} );
+});
 two.addEventListener('click', function(){
     if (zeroError === true){zeroReset()};
     value += "2";
