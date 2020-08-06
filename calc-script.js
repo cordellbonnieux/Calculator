@@ -81,7 +81,7 @@ function checkKey(key){
         return;
     } else if (key.keyCode == "46"){
         return zeroReset();
-    } else if (key.keyCode == "8"){
+    } else if (key.keyCode == "08"){
         if (value.length > 0){
             return value = value.slice(0,-1), display.innerHTML = value;
         } else {
